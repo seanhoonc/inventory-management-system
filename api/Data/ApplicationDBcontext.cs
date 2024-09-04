@@ -19,5 +19,23 @@ namespace api.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Inventory> Inventories { get; set; }
         public DbSet<Warehouse> Warehouses { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+
+            // Configure builder for Inventory model which is a keyless entity type.
+            builder.Entity<Inventory>(x => x.HasKey(i => new { i.ProductId, i.WarehouseId }));
+
+            builder.Entity<Inventory>()
+                .HasOne(u => u.Product)
+                .WithMany(u => u.Inventories)
+                .HasForeignKey(i => i.ProductId);
+
+            builder.Entity<Inventory>()
+                .HasOne(u => u.Warehouse)
+                .WithMany(u => u.Inventories)
+                .HasForeignKey(i => i.WarehouseId);
+        }
     }
 }

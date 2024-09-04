@@ -10,5 +10,6 @@ namespace api.Models
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public bool IsRefrigerated { get; set; } = false;
+        public List<Inventory> Inventories { get; set; } = [];
     }
 }
