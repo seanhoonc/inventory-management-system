@@ -61,7 +61,7 @@ namespace api.Controllers
 
             if (categoryModel == null)
             {
-                return NotFound();
+                return NotFound("Category does not exist.");
             }
 
             return Ok(categoryModel.ToCategoryDto());
@@ -75,10 +75,10 @@ namespace api.Controllers
 
             if (categoryModel == null)
             {
-                return NotFound();
+                return NotFound("Category does not exist.");
             }
 
-            return NoContent();
+            return Ok();
         }
     }
 }

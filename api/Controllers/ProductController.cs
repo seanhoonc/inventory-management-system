@@ -35,9 +35,14 @@ namespace api.Controllers
             return Ok(productDto);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById([FromRoute] int id)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var product = await _productRepo.GetByIdAsync(id);
 
             if (product == null)
@@ -47,9 +52,14 @@ namespace api.Controllers
             return Ok(product.ToProductDto());
         }
 
-        [HttpPost("{categoryId}")]
+        [HttpPost("{categoryId:int}")]
         public async Task<IActionResult> Create([FromRoute] int categoryId, [FromBody] CreateProductRequestDto createDto)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             if (!await _categoryRepo.CategoryExist(categoryId))
             {
                 return BadRequest("Category does not exist");
@@ -63,31 +73,41 @@ namespace api.Controllers
         }
 
         [HttpPut]
-        [Route("{id}")]
+        [Route("{id:int}")]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] UpdateProductRequestDto updateDto)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var productModel = await _productRepo.UpdateAsync(id, updateDto);
 
             if (productModel == null)
             {
-                return NotFound();
+                return NotFound("Product does not exist.");
             }
 
             return Ok(productModel.ToProductDto());
         }
 
         [HttpDelete]
-        [Route("{id}")]
+        [Route("{id:int}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var productModel = await _productRepo.DeleteAsync(id);
 
             if (productModel == null)
             {
-                return NotFound();
+                return NotFound("Product does not exist.");
             }
 
-            return NoContent();
+            return Ok();
         }
 
 

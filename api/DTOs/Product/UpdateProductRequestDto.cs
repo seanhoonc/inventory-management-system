@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace api.DTOs.Product
 {
+    // Used for update product on client-side
     public class UpdateProductRequestDto
     {
         [Required]

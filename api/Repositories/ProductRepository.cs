@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace api.Repositories
 {
-    // Manage database calls for Product Controller
+    // Manage database calls for Product controller
     public class ProductRepository : IProductRepository
     {
         private readonly ApplicationDBcontext _context;
@@ -53,9 +53,11 @@ namespace api.Repositories
             return await _context.Products.FindAsync(id);
         }
 
+        // Update existing prodcut to change name and description
+        // To-do: including update cateogry id if it needs
         public async Task<Product?> UpdateAsync(int id, UpdateProductRequestDto productDto)
         {
-            var existingProduct = await _context.Products.FirstOrDefaultAsync(x => x.Id == id);
+            var existingProduct = await _context.Products.FindAsync(id);
 
             if (existingProduct == null)
             {

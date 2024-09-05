@@ -10,6 +10,7 @@ namespace api.Mappers
 {
     public static class ProductMappers
     {
+        // Transfer product model to productdto to hide unnecessary fields
         public static ProductDto ToProductDto(this Product productModel)
         {
             return new ProductDto
@@ -23,6 +24,7 @@ namespace api.Mappers
             };
         }
 
+        // return new product model from product create request which takes essential fields from client-side
         public static Product ToProductFromCreateDto(this CreateProductRequestDto productDto, int categoryId)
         {
             return new Product

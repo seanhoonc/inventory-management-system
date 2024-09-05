@@ -18,6 +18,7 @@ namespace api.Repositories
             _context = context;
         }
 
+        // check the category exist in order to create product under the category
         public Task<bool> CategoryExist(int categoryId)
         {
             return _context.Categories.AnyAsync(x => x.Id == categoryId);
@@ -56,6 +57,7 @@ namespace api.Repositories
             return await _context.Categories.FindAsync(id);
         }
 
+        // Update existing category to change name and description
         public async Task<Category?> UpdateAsync(int id, CreateAndUpdateCategoryRequestDto categoryDto)
         {
             var existingCategory = await _context.Categories.FirstOrDefaultAsync(x => x.Id == id);

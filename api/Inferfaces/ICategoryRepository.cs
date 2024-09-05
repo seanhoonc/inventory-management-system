@@ -7,6 +7,7 @@ using api.Models;
 
 namespace api.Inferfaces
 {
+    // Interface to define database calls in category repository
     public interface ICategoryRepository
     {
         Task<List<Category>> GetAllAsync();

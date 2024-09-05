@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace api.DTOs.Category
 {
+    // Used for create and update category on client-side
     public class CreateAndUpdateCategoryRequestDto
     {
         [Required]

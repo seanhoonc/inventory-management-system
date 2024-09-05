@@ -7,6 +7,7 @@ using api.Models;
 
 namespace api.Inferfaces
 {
+    // Interface to define database calls in product repository
     public interface IProductRepository
     {
         Task<List<Product>> GetAllAsync();

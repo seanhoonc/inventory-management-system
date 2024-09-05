@@ -9,6 +9,7 @@ namespace api.Mappers
 {
     public static class CategoryMappers
     {
+        // Transfer category model to categorydto to hide unnecessary fields
         public static CategoryDto ToCategoryDto(this Category category)
         {
             return new CategoryDto
@@ -20,6 +21,7 @@ namespace api.Mappers
             };
         }
 
+        // return new category model from category request dto which takes essential fields from client-side
         public static Category ToCategoryFromCreateDto(this CreateAndUpdateCategoryRequestDto categoryDto)
         {
             return new Category
