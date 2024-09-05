@@ -11,6 +11,8 @@ namespace api.Models
         public string Code { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
+        public int? CategoryId { get; set; }
+        public Category? Category { get; set; }
         public List<Inventory> Inventories { get; set; } = [];
     }
 }

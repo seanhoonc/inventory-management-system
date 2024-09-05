@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace api.Repositories
 {
+    // Manage database calls for Product Controller
     public class ProductRepository : IProductRepository
     {
         private readonly ApplicationDBcontext _context;
@@ -29,7 +30,7 @@ namespace api.Repositories
 
         public async Task<Product?> DeleteAsync(int id)
         {
-            var productModel = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
+            var productModel = await _context.Products.FirstOrDefaultAsync(x => x.Id == id);
 
             if (productModel == null)
             {
@@ -52,9 +53,9 @@ namespace api.Repositories
             return await _context.Products.FindAsync(id);
         }
 
-        public async Task<Product> UpdateAsync(int id, UpdateProductRequestDto productDto)
+        public async Task<Product?> UpdateAsync(int id, UpdateProductRequestDto productDto)
         {
-            var existingProduct = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
+            var existingProduct = await _context.Products.FirstOrDefaultAsync(x => x.Id == id);
 
             if (existingProduct == null)
             {

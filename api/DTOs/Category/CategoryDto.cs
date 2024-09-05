@@ -2,17 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using api.Models;
+using api.DTOs.Product;
 
-namespace api.DTOs.Product
+namespace api.DTOs.Category
 {
-    public class ProductDto
+    public class CategoryDto
     {
         public int Id { get; set; }
-        public string Code { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
-        public int? CategoryId { get; set; }
-        public List<Inventory> Inventories { get; set; } = [];
+        public List<ProductDto>? Products { get; set; }
     }
 }

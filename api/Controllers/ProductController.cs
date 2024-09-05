@@ -17,12 +17,12 @@ namespace api.Controllers
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private readonly ApplicationDBcontext _context;
         private readonly IProductRepository _productRepo;
-        public ProductController(ApplicationDBcontext context, IProductRepository productRepo)
+        private readonly ICategoryRepository _categoryRepo;
+        public ProductController(IProductRepository productRepo, ICategoryRepository categoryRepo)
         {
-            _context = context;
             _productRepo = productRepo;
+            _categoryRepo = categoryRepo;
         }
 
         [HttpGet]
@@ -30,7 +30,7 @@ namespace api.Controllers
         {
             var products = await _productRepo.GetAllAsync();
 
-            var productDto = products.Select(p => p.ToProductDto());
+            var productDto = products.Select(s => s.ToProductDto());
 
             return Ok(productDto);
         }
@@ -47,10 +47,15 @@ namespace api.Controllers
             return Ok(product.ToProductDto());
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Create([FromBody] CreateProductRequestDto createDto)
+        [HttpPost("{categoryId}")]
+        public async Task<IActionResult> Create([FromRoute] int categoryId, [FromBody] CreateProductRequestDto createDto)
         {
-            var productModel = createDto.ToProductFromCreateDto();
+            if (!await _categoryRepo.CategoryExist(categoryId))
+            {
+                return BadRequest("Category does not exist");
+            }
+
+            var productModel = createDto.ToProductFromCreateDto(categoryId);
 
             await _productRepo.CreateAsync(productModel);
 

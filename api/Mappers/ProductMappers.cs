@@ -18,17 +18,19 @@ namespace api.Mappers
                 Code = productModel.Code,
                 Name = productModel.Name,
                 Description = productModel.Description,
+                CategoryId = productModel.CategoryId,
                 Inventories = productModel.Inventories.ToList(),
             };
         }
 
-        public static Product ToProductFromCreateDto(this CreateProductRequestDto productDto)
+        public static Product ToProductFromCreateDto(this CreateProductRequestDto productDto, int categoryId)
         {
             return new Product
             {
                 Code = productDto.Code,
                 Name = productDto.Name,
                 Description = productDto.Description,
+                CategoryId = categoryId,
                 // Inventories = productDto.Inventories.ToList(),
             };
         }
