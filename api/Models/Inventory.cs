@@ -10,7 +10,8 @@ namespace api.Models
     {
         public int ProductId { get; set; }
         public int WarehouseId { get; set; }
-        public required Product Product { get; set; }
-        public required Warehouse Warehouse { get; set; }
+        public int Quantity { get; set; } = 0;
+        public Product Product { get; set; }
+        public Warehouse Warehouse { get; set; }
     }
 }

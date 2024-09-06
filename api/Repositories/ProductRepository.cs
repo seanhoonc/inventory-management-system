@@ -48,6 +48,18 @@ namespace api.Repositories
             return await _context.Products.ToListAsync();
         }
 
+        public async Task<Product?> GetByCodeAsync(string produtCode)
+        {
+            var productModel = await _context.Products.FirstOrDefaultAsync(x => x.Code == produtCode);
+
+            if (productModel == null)
+            {
+                return null;
+            }
+
+            return productModel;
+        }
+
         public async Task<Product?> GetByIdAsync(int id)
         {
             return await _context.Products.FindAsync(id);

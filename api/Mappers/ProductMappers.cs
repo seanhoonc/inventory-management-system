@@ -20,7 +20,6 @@ namespace api.Mappers
                 Name = productModel.Name,
                 Description = productModel.Description,
                 CategoryId = productModel.CategoryId,
-                Inventories = productModel.Inventories.ToList(),
             };
         }
 
@@ -33,7 +32,6 @@ namespace api.Mappers
                 Name = productDto.Name,
                 Description = productDto.Description,
                 CategoryId = categoryId,
-                // Inventories = productDto.Inventories.ToList(),
             };
         }
     }
