@@ -28,7 +28,7 @@ namespace api.Controllers
             var categoryDto = categories.Select(s => s.ToCategoryDto());
 
             return Ok(categoryDto);
-        }
+        } 
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById([FromRoute] int id)

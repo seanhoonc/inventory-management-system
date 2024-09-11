@@ -4,11 +4,13 @@ using System.Data.Common;
 using System.Linq;
 using System.Threading.Tasks;
 using api.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace api.Data
 {
-    public class ApplicationDBcontext : DbContext
+    public class ApplicationDBcontext : IdentityDbContext<AppUser>
     {
         public ApplicationDBcontext(DbContextOptions dbContextOptions) : base(dbContextOptions)
         {
@@ -36,6 +38,24 @@ namespace api.Data
                 .HasOne(u => u.Warehouse)
                 .WithMany(u => u.Inventories)
                 .HasForeignKey(i => i.WarehouseId);
+
+            // Configure identity roles for application user (Admin and User)
+            List<IdentityRole> roles =
+            [
+                new IdentityRole
+                {
+                    Name = "Admin",
+                    NormalizedName = "ADMIN"
+                },
+                new IdentityRole
+                {
+                    Name = "User",
+                    NormalizedName = "USER"
+                },
+            ];
+
+            builder.Entity<IdentityRole>()
+                .HasData(roles);
         }
     }
 }
